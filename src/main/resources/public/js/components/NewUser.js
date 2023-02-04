@@ -5,22 +5,28 @@ class NewUser extends React.Component {
       name: "",
       surname: "",
       gender: "",
-      birthday: "",
+      birthdate: "",
       workAddress: "",
       homeAddress: ""
     };
     this.submit = this.submit.bind(this);
     this.reset = this.reset.bind(this);
-    this.setField = this.setField.bind(this);
+    this.setName = this.setName.bind(this);
+    this.setSurname = this.setSurname.bind(this);
+    this.setGender = this.setGender.bind(this);
+    this.setBirthdate = this.setBirthdate.bind(this);
+    this.setWorkAddress = this.setWorkAddress.bind(this);
+    this.setHomeAddress = this.setHomeAddress.bind(this);
   }
   reset() {
     this.setState({
       name: "",
       surname: "",
       gender: "",
-      birthday: "",
+      birthdate: "",
       workAddress: "",
       homeAddress: ""
+
     });
   }
   submit(e) {
@@ -29,17 +35,62 @@ class NewUser extends React.Component {
       name: this.state.name,
       surname: this.state.surname,
       gender: this.state.gender,
-      birthday: this.state.birthday,
-      workAddress: this.state.workAddress,
-      homeAddress: this.state.homeAddress
+      birthdate: this.state.birthdate,
+      address: {workAddress: this.state.workAddress,
+                homeAddress: this.state.homeAddress
+      }
+
+
     };
-    $.post("/create", u);
+    alert("User Inserted");
+    $.post({
+                  url: "/create",
+                  type: "POST",
+                  contentType: 'application/json',
+                  dataType: 'json',
+                  data: JSON.stringify(u)
+              })
+
+    this.setState({
+        name: "",
+        surname: "",
+        gender : "",
+        birthdate : "",
+        workAddress : "",
+        homeAddress : ""
+    })
+
+
   }
-  setField(field, value) {
-    var newState = {};
-    newState[field] = value;
-    this.setState(newState);
-    this.reset();
+  setName(e) {
+    this.setState({
+      name: e.target.value
+    });
+  }
+  setSurname(e) {
+    this.setState({
+      surname: e.target.value
+    });
+  }
+  setGender(e) {
+    this.setState({
+      gender: e.target.value
+    });
+  }
+  setBirthdate(e) {
+    this.setState({
+      birthdate: e.target.value
+    });
+  }
+  setWorkAddress(e) {
+    this.setState({
+      workAddress: e.target.value
+    });
+  }
+  setHomeAddress(e) {
+    this.setState({
+      homeAddress: e.target.value
+    });
   }
   render() {
     const e = React.createElement;
@@ -50,21 +101,21 @@ class NewUser extends React.Component {
        <br />
        <label>
          <span>Name: </span>
-         <input type="text" onChange={function(e){this.setField("name", e.target.value)}} value={this.state.name} />
+         <input type="text" onChange={this.setName} value={this.state.name} />
        </label>
        <br />
        <label>
          <span>Surname: </span>
-         <input type="text" onChange={function(e){this.setField("surname", e.target.value)}} value={this.state.surname} />
+         <input type="text" onChange={this.setSurname} value={this.state.surname} />
        </label>
         <label>
          <span>Date: </span>
-         <input type="date" onChange={function(e){this.setField("birthday", e.target.value)}} value={this.state.birthday} />
+         <input type="date" onChange={this.setBirthday} value={this.state.birthday} />
        </label>
         <br />
        <label>
          <span>Gender: </span>
-         <select onChange={function(e){this.setField("gender", e.target.value)}} value={this.state.gender}>
+         <select onChange={this.setGender} value={this.state.gender}>
            <option value="male">Male</option>
            <option value="female">Female</option>
            <option value="other">Other</option>
@@ -73,12 +124,12 @@ class NewUser extends React.Component {
        <br />
        <label>
          <span>Home Address: </span>
-         <input type="text" onChange={function(e){this.setField("workAddress", e.target.value)}} value={this.state.workAddress} />
+         <input type="text" onChange={this.setHomeAddress} value={this.state.workAddress} />
        </label>
        <br />
        <label>
          <span>Work Address: </span>
-         <input type="text" onChange={function(e){this.setField("homeAddress", e.target.value)}} value={this.state.homeAddress} />
+         <input type="text" onChange={this.setWorkAddress} value={this.state.homeAddress} />
        </label>
        <br />
         <input type="submit" value="Submit" />
@@ -86,52 +137,40 @@ class NewUser extends React.Component {
     </div>
       */
 
-    return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("form", {
+    return React.createElement("div", null, React.createElement("form", {
       onSubmit: this.submit
-    }, /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("label", null, /*#__PURE__*/React.createElement("span", null, "Name: "), /*#__PURE__*/React.createElement("input", {
+    }, React.createElement("br", null), React.createElement("label", null, React.createElement("span", null, "Name: "), React.createElement("input", {
       type: "text",
-      onChange: function (e) {
-        this.setField("name", e.target.value);
-      },
+      onChange: this.setName,
       value: this.state.name
     })), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("label", null, /*#__PURE__*/React.createElement("span", null, "Surname: "), /*#__PURE__*/React.createElement("input", {
       type: "text",
-      onChange: function (e) {
-        this.setField("surname", e.target.value);
-      },
+      onChange: this.setSurname,
       value: this.state.surname
     })), /*#__PURE__*/React.createElement("label", null, /*#__PURE__*/React.createElement("span", null, "Date: "), /*#__PURE__*/React.createElement("input", {
       type: "date",
-      onChange: function (e) {
-        this.setField("birthday", e.target.value);
-      },
-      value: this.state.birthday
+      onChange: this.setBirthdate,
+      value: this.state.birthdate
     })), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("label", null, /*#__PURE__*/React.createElement("span", null, "Gender: "), /*#__PURE__*/React.createElement("select", {
-      onChange: function (e) {
-        this.setField("gender", e.target.value);
-      },
+      onChange: this.setGender,
       value: this.state.gender
     }, /*#__PURE__*/React.createElement("option", {
-      value: "male"
+      value: "M"
     }, "Male"), /*#__PURE__*/React.createElement("option", {
-      value: "female"
-    }, "Female"), /*#__PURE__*/React.createElement("option", {
-      value: "other"
-    }, "Other"))), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("label", null, /*#__PURE__*/React.createElement("span", null, "Home Address: "), /*#__PURE__*/React.createElement("input", {
+      value: "F"
+    }, "Female"))), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("label", null, /*#__PURE__*/React.createElement("span", null, "Home Address: "), /*#__PURE__*/React.createElement("input", {
       type: "text",
-      onChange: function (e) {
-        this.setField("workAddress", e.target.value);
-      },
-      value: this.state.workAddress
+      onChange: this.setHomeAddress,
+      value: this.state.homeAddress
     })), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("label", null, /*#__PURE__*/React.createElement("span", null, "Work Address: "), /*#__PURE__*/React.createElement("input", {
       type: "text",
-      onChange: function (e) {
-        this.setField("homeAddress", e.target.value);
-      },
-      value: this.state.homeAddress
+      onChange: this.setWorkAddress,
+      value: this.state.workAddress
     })), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("input", {
       type: "submit",
       value: "Submit"
     })));
+
+
   }
 }

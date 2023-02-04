@@ -1,22 +1,34 @@
 package com.example.demo.entity;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 
+import java.io.Serializable;
+
 @Entity
-@Table(name = "addresses")
-public class Address {
+@Table(name = "table_address")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+public class Address implements Serializable {
+    @JsonIgnore
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-//    @Column(name = "address_id")
     private int address_id;
-//    @Column(name = "work_address")
     private String workAddress;
-//    @Column(name = "home_address")
     private String homeAddress;
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id")
+
+    @JsonIgnore
+    @OneToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+    @JoinColumn(name = "user_id")
     private User user;
+
+    public Address(){}
+
+    public Address(String workAddress, String homeAddress) {
+        this.workAddress = workAddress;
+        this.homeAddress = homeAddress;
+    }
 
     public int getAddress_id() {
         return address_id;

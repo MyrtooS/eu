@@ -1,27 +1,47 @@
 package com.example.demo.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
+import java.io.Serializable;
 import java.util.Date;
 
 @Entity
-@Table(name = "Users")
-public class User {
+@Table(name = "table_user")
+public class User implements Serializable {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-//    @Column(name = "id")
+//    @JsonIgnore
     private int id;
-//    @Column(name = "name")
     private String name;
-//    @Column(name = "surname")
     private String surname;
-//    @Column(name = "gender")
     private String gender;
-//    @Column(name = "birthdate")
     @Temporal(TemporalType.DATE)
     private Date birthdate;
+
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Address address;
+
+    public User() {
+    }
+
+    public User(String name, String surname, String gender, Date birthdate, Address address) {
+        this.name = name;
+        this.surname = surname;
+        this.gender = gender;
+        this.birthdate = birthdate;
+        this.address = address;
+    }
+
+    public Address getAddress() {
+        return address;
+    }
+
+    public void setAddress(Address address) {
+        this.address = address;
+    }
+
     public int getId() {
         return id;
     }
@@ -53,6 +73,7 @@ public class User {
     public void setGender(String gender) {
         this.gender = gender;
     }
+
 
     public Date getBirthdate() {
         return birthdate;

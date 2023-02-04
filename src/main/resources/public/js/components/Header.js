@@ -1,6 +1,10 @@
 class Header extends React.Component {
   constructor(props) {
     super(props);
+
+    this.goHome = this.goHome.bind(this)
+    this.goCreate = this.goCreate.bind(this)
+    this.goDisplay = this.goDisplay.bind(this)
   }
   goHome() {
     this.props.switch("home");
@@ -11,6 +15,9 @@ class Header extends React.Component {
   goDisplay() {
     this.props.switch("display");
   }
+
+
+
   render() {
     const e = React.createElement;
     /*
@@ -22,19 +29,27 @@ class Header extends React.Component {
        </div>
      </div>
     */
-    return /*#__PURE__*/React.createElement("div", {
-      class: "header"
-    }, /*#__PURE__*/React.createElement("div", {
-      class: "navigation"
-    }, /*#__PURE__*/React.createElement("div", {
-      class: "nav_button",
-      onClick: this.goHome
-    }, "Home"), /*#__PURE__*/React.createElement("div", {
-      class: "nav_button",
-      onClick: this.goDisplay
-    }, "Display"), /*#__PURE__*/React.createElement("div", {
-      class: "nav_button",
-      onClick: this.goCreate
-    }, "Create")));
+/*
+
+<ul>
+  <li><a href="#" onClick={"this.goHome"}>Home</a></li>
+  <li><a href="#" onClick={"this.goDisplay"}>Display</a></li>
+  <li><a href="#" onClick={"goCreate"}>Create</a></li>
+</ul>
+
+
+*/
+
+
+  return /*#__PURE__*/React.createElement("ul", null, /*#__PURE__*/React.createElement("li", null, /*#__PURE__*/React.createElement("a", {
+
+    onClick: this.goHome
+  }, "Home")), /*#__PURE__*/React.createElement("li", null, /*#__PURE__*/React.createElement("a", {
+
+    onClick: this.goDisplay
+  }, "Display")), /*#__PURE__*/React.createElement("li", null, /*#__PURE__*/React.createElement("a", {
+
+    onClick: this.goCreate
+  }, "Create")));
   }
 }

@@ -4,6 +4,6 @@ class HomePage extends React.Component {
   }
   render() {
     const e = React.createElement;
-    return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("h1", null, "Welcome to temporary app"));
+    return React.createElement("div", null,React.createElement("h1", null, "Welcome"));
   }
 }
